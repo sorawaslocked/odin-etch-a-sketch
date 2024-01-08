@@ -87,6 +87,7 @@ function handleMouseInput(squareArray) {
   document.body.onmouseup = () => {
     removeSquareHovering(squareArray);
   }
+  addSquareClicking(squareArray);
 }
 
 function disableDrag(squareArray) {
@@ -99,6 +100,17 @@ function disableDrag(squareArray) {
       square.addEventListener('drop', event => {
         event.preventDefault();
       });
+    });
+  });
+}
+
+function addSquareClicking(squareArray) {
+  squareArray.forEach((squareRow) => {
+    let squares = squareRow.querySelectorAll('div');
+    squares.forEach((square) => {
+      square.onclick = () => {
+        square.style.backgroundColor = brushColor;
+      }
     });
   });
 }
