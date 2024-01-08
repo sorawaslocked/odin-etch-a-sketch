@@ -17,11 +17,11 @@ addOptionsEventListeners();
 
 function addOptionsEventListeners() {
   // Change brush color when color picker is changed
-  brushColorPicker.addEventListener('input', () => {
+  brushColorPicker.addEventListener('change', () => {
     brushColor = brushColorPicker.value;
   });
   // Replace old backgorund with new when color picker is changed
-  backgroundColorPicker.addEventListener('input', () => {
+  backgroundColorPicker.addEventListener('change', () => {
     backgroundColor = backgroundColorPicker.value;
     replaceBoard();
   });
