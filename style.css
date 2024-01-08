@@ -2,11 +2,35 @@ body {
   background-color: antiquewhite;
 }
 
+#header, #footer {
+  font-family: 'Pixelify Sans', sans-serif;
+  text-align: center;
+  color: green;
+}
+
+#header {
+  font-size: 64px;
+  font-weight: bold;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+
+#footer {
+  font-size: 24px;
+  padding: 24px;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
 #options {
   display: flex;
   flex-direction: column;
-  padding: 24px;
+  padding: 8px 24px 24px;
   border: 3px solid black;
+  font-family: 'Pacifico', cursive;
 }
 
 button {
@@ -15,11 +39,14 @@ button {
 }
 
 #optionsTitle {
-  margin-bottom: 24px;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 40px;
   text-align: center;
 }
 
 .colorBox {
+  font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -44,14 +71,18 @@ button {
 
 #clearBoardBtn {
   margin-bottom: 0px;
+  font-family: 'Pacifico', cursive;
+  font-size: 28px;
 }
 
 #changeGridSizeBtn {
-  margin: 0;
+  margin-bottom: 4px;
 }
 
 #changeGridSizeLabel {
+  font-size: 20px;
   text-align: center;
+  margin-bottom: 24px;
 }
 
 #content {
