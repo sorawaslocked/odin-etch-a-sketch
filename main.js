@@ -2,16 +2,28 @@ const MAIN_BOARD_WIDTH = 600;
 const board = document.querySelector('#mainBoard');
 const changeGridSizeBtn = document.querySelector('#changeGridSizeBtn');
 const clearBoardBtn = document.querySelector('#clearBoardBtn');
+const brushColorPicker = document.querySelector('#brushColor');
+const backgroundColorPicker = document.querySelector('#backgroundColor');
 
 // Initializing grid
+let brushColor = brushColorPicker.value;
+let backgroundColor = backgroundColorPicker.value;
 let gridSize = 16;
 let squareArray = createSquareArray(gridSize);
-let color = 'black';
 initBoard(squareArray);
 
 addOptionsEventListeners();
 
 function addOptionsEventListeners() {
+  // Change brush color when color picker is changed
+  brushColorPicker.addEventListener('input', () => {
+    brushColor = brushColorPicker.value;
+  });
+  // Replace old backgorund with new when color picker is changed
+  backgroundColorPicker.addEventListener('input', () => {
+    backgroundColor = backgroundColorPicker.value;
+    replaceBoard();
+  });
   // Clear the board without changing grid size
   clearBoardBtn.addEventListener('click', () => {
     clearBoard();
@@ -21,9 +33,7 @@ function addOptionsEventListeners() {
   // Change grid size and replace old board with new
   changeGridSizeBtn.addEventListener('click', () => {
     gridSize = prompt("Enter grid size: ");
-    clearBoard();
-    squareArray = createSquareArray(gridSize);
-    initBoard(squareArray);
+    replaceBoard();
   });
 }
 
@@ -39,6 +49,12 @@ function clearBoard() {
   }
 }
 
+function replaceBoard() {
+  clearBoard();
+  squareArray = createSquareArray(gridSize);
+  initBoard(squareArray);
+}
+
 // Array is created from rows of squares
 function createSquareArray(gridWidth) {
   let squareArray = []
@@ -51,6 +67,7 @@ function createSquareArray(gridWidth) {
       square.style.height = `${MAIN_BOARD_WIDTH / gridWidth}px`;
       square.style.boxSizing = 'border-box';
       square.style.border = '1px solid black';
+      square.style.backgroundColor = backgroundColor;
       squareRow.appendChild(square);
     }
     squareArray.push(squareRow);
@@ -61,7 +78,7 @@ function createSquareArray(gridWidth) {
 
 function handleMouseInput(squareArray) {
   document.body.onmousedown = () => {
-    addSquareHovering(squareArray, color);
+    addSquareHovering(squareArray, brushColor);
   }
   document.body.onmouseup = () => {
     removeSquareHovering(squareArray);
@@ -82,12 +99,12 @@ function disableDrag(squareArray) {
   });
 }
 
-function addSquareHovering(squareArray, color) {
+function addSquareHovering(squareArray, brushColor) {
   squareArray.forEach((squareRow) => {
     let squares = squareRow.querySelectorAll('div');
     squares.forEach((square) => {
       square.onmouseenter = () => {
-        square.style.backgroundColor = color;
+        square.style.backgroundColor = brushColor;
       }
     });
   });
