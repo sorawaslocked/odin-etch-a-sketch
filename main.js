@@ -3,7 +3,8 @@ const board = document.querySelector('#mainBoard');
 
 // MAIN CODE
 let squareArray = createSquareArray(16);
-addSquareHovering(squareArray, 'red');
+handleMouseInput();
+disableDrag(squareArray);
 fillMainBoard(squareArray);
 
 function createSquareArray(gridWidth) {
@@ -19,6 +20,26 @@ function createSquareArray(gridWidth) {
   }
 
   return squareArray;
+}
+
+function handleMouseInput() {
+  document.body.onmousedown = () => {
+    addSquareHovering(squareArray, 'red');
+  }
+  document.body.onmouseup = () => {
+    removeSquareHovering(squareArray);
+  }
+}
+
+function disableDrag(squareArray) {
+  squareArray.forEach((square) => {
+    square.addEventListener('dragstart', event => {
+      event.preventDefault();
+    });
+    square.addEventListener('drop', event => {
+      event.preventDefault();
+    });
+  });
 }
 
 function addSquareHovering(squareArray, color) {
