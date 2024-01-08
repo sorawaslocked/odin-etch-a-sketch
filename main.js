@@ -1,6 +1,7 @@
 const MAIN_BOARD_WIDTH = 600;
 const board = document.querySelector('#mainBoard');
 const changeGridSizeBtn = document.querySelector('#changeGridSizeBtn');
+const clearBoardBtn = document.querySelector('#clearBoardBtn');
 
 // Initializing grid
 let gridSize = 16;
@@ -8,12 +9,23 @@ let squareArray = createSquareArray(gridSize);
 let color = 'black';
 initBoard(squareArray);
 
-changeGridSizeBtn.addEventListener('click', () => {
-  gridSize = prompt("Enter grid size: ");
-  clearBoard();
-  squareArray = createSquareArray(gridSize);
-  initBoard(squareArray);
-});
+addOptionsEventListeners();
+
+function addOptionsEventListeners() {
+  // Clear the board without changing grid size
+  clearBoardBtn.addEventListener('click', () => {
+    clearBoard();
+    squareArray = createSquareArray(gridSize);
+    initBoard(squareArray);
+  });
+  // Change grid size and replace old board with new
+  changeGridSizeBtn.addEventListener('click', () => {
+    gridSize = prompt("Enter grid size: ");
+    clearBoard();
+    squareArray = createSquareArray(gridSize);
+    initBoard(squareArray);
+  });
+}
 
 function initBoard(squareArray) {
   handleMouseInput(squareArray);
