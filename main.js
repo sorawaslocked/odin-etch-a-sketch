@@ -1,11 +1,17 @@
-const MAIN_BOARD_WIDTH = 480;
+const MAIN_BOARD_WIDTH = 640;
 const board = document.querySelector('#mainBoard');
+const changeGridSizeBtn = document.querySelector('#changeGridSizeBtn');
 
-// MAIN CODE
-let squareArray = createSquareArray(16);
+// Initializing grid
+let gridSize = 16;
+let squareArray = createSquareArray(gridSize);
 handleMouseInput();
 disableDrag(squareArray);
 fillMainBoard(squareArray);
+
+changeGridSizeBtn.addEventListener('click', () => {
+  gridSize = prompt("Enter grid size: ");
+});
 
 function createSquareArray(gridWidth) {
   let squareArray = []
