@@ -1,17 +1,30 @@
-const MAIN_BOARD_WIDTH = 640;
+const MAIN_BOARD_WIDTH = 600;
 const board = document.querySelector('#mainBoard');
 const changeGridSizeBtn = document.querySelector('#changeGridSizeBtn');
 
 // Initializing grid
 let gridSize = 16;
 let squareArray = createSquareArray(gridSize);
-handleMouseInput();
-disableDrag(squareArray);
-fillMainBoard(squareArray);
+initBoard(squareArray);
 
 changeGridSizeBtn.addEventListener('click', () => {
   gridSize = prompt("Enter grid size: ");
+  clearBoard();
+  squareArray = createSquareArray(gridSize);
+  initBoard(squareArray);
 });
+
+function initBoard(squareArray) {
+  handleMouseInput(squareArray);
+  disableDrag(squareArray);
+  fillMainBoard(squareArray);
+}
+
+function clearBoard() {
+  while (board.firstChild) {
+    board.removeChild(board.firstChild);
+  }
+}
 
 function createSquareArray(gridWidth) {
   let squareArray = []
@@ -28,9 +41,9 @@ function createSquareArray(gridWidth) {
   return squareArray;
 }
 
-function handleMouseInput() {
+function handleMouseInput(squareArray) {
   document.body.onmousedown = () => {
-    addSquareHovering(squareArray, 'red');
+    addSquareHovering(squareArray, 'black');
   }
   document.body.onmouseup = () => {
     removeSquareHovering(squareArray);
