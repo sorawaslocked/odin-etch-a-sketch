@@ -5,8 +5,8 @@ body {
 #mainBoard {
   width: 480px;
   height: 480px;
-  border: 2px solid black;
-  margin: 0 auto;
+  border: 3px solid black;
+  margin: 20px auto 0;
   display: flex;
   flex-wrap: wrap;
 }
