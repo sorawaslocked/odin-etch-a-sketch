@@ -23,9 +23,15 @@ function createSquareArray(gridWidth) {
 
 function addSquareHovering(squareArray, color) {
   squareArray.forEach((square) => {
-    square.addEventListener('mouseenter', () => {
+    square.onmouseenter = () => {
       square.style.backgroundColor = color;
-    })
+    }
+  });
+}
+
+function removeSquareHovering(squareArray) {
+  squareArray.forEach((square) => {
+    square.onmouseenter = null;
   });
 }
 
