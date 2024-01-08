@@ -1,9 +1,10 @@
 const MAIN_BOARD_WIDTH = 600;
 const board = document.querySelector('#mainBoard');
-const changeGridSizeBtn = document.querySelector('#changeGridSizeBtn');
-const clearBoardBtn = document.querySelector('#clearBoardBtn');
 const brushColorPicker = document.querySelector('#brushColor');
 const backgroundColorPicker = document.querySelector('#backgroundColor');
+const changeGridSizeBtn = document.querySelector('#changeGridSizeBtn');
+const changeGridSizeLabel = document.querySelector('#changeGridSizeLabel');
+const clearBoardBtn = document.querySelector('#clearBoardBtn');
 
 // Initializing grid
 let brushColor = brushColorPicker.value;
@@ -31,8 +32,11 @@ function addOptionsEventListeners() {
     initBoard(squareArray);
   });
   // Change grid size and replace old board with new
-  changeGridSizeBtn.addEventListener('click', () => {
-    gridSize = prompt("Enter grid size: ");
+  changeGridSizeBtn.addEventListener('input', () => {
+    gridSize = changeGridSizeBtn.value;
+    changeGridSizeLabel.textContent = "Grid Size " + gridSize + " x " + gridSize;
+  });
+  changeGridSizeBtn.addEventListener('change', () => {
     replaceBoard();
   });
 }

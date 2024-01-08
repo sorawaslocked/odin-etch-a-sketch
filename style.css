@@ -14,10 +14,6 @@ button {
   font-size: 24px;
 }
 
-#changeGridSizeBtn {
-  margin: 0;
-}
-
 #optionsTitle {
   margin-bottom: 24px;
   text-align: center;
@@ -47,7 +43,15 @@ button {
 }
 
 #clearBoardBtn {
-  margin-bottom: 24px;
+  margin-bottom: 0px;
+}
+
+#changeGridSizeBtn {
+  margin: 0;
+}
+
+#changeGridSizeLabel {
+  text-align: center;
 }
 
 #content {
