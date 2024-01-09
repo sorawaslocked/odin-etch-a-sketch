@@ -3,13 +3,16 @@ const board = document.querySelector('#mainBoard');
 const brushColorPicker = document.querySelector('#brushColor');
 const backgroundColorPicker = document.querySelector('#backgroundColor');
 const rainbowCheckbox = document.querySelector('#rainbow');
+const gridLineCheckbox = document.querySelector('#gridLines');
 const changeGridSizeBtn = document.querySelector('#changeGridSizeBtn');
+changeGridSizeBtn.value = 16;
 const changeGridSizeLabel = document.querySelector('#changeGridSizeLabel');
 const clearBoardBtn = document.querySelector('#clearBoardBtn');
 
 // Initializing grid
 let brushColor = brushColorPicker.value;
 let backgroundColor = backgroundColorPicker.value;
+let border = 'none';
 let gridSize = 16;
 let squareArray = createSquareArray(gridSize);
 initBoard(squareArray);
@@ -17,17 +20,20 @@ initBoard(squareArray);
 addOptionsEventListeners();
 
 function addOptionsEventListeners() {
+
   // Change brush color when color picker is changed
   brushColorPicker.addEventListener('input', () => {
     brushColor = brushColorPicker.value;
     handleNormalMouseInput(squareArray);
     rainbowCheckbox.checked = false;
   });
+
   // Replace old backgorund with new when color picker is changed
   backgroundColorPicker.addEventListener('change', () => {
     backgroundColor = backgroundColorPicker.value;
     replaceBoard();
   });
+
   // Toggle for rainbow brush mode
   rainbowCheckbox.addEventListener('change', () => {
     if (!rainbowCheckbox.checked) {
@@ -37,12 +43,22 @@ function addOptionsEventListeners() {
       handleRainbowMouseInput(squareArray);
     }
   });
+
+  // Toggle grid lines
+  gridLineCheckbox.addEventListener('change', () => {
+    if (!gridLineCheckbox.checked)
+      toggleGridLines(squareArray, false);
+    else
+      toggleGridLines(squareArray, true);
+  });
+
   // Clear the board without changing grid size
   clearBoardBtn.addEventListener('click', () => {
     clearBoard();
     squareArray = createSquareArray(gridSize);
     initBoard(squareArray);
   });
+
   // Change grid size and replace old board with new
   changeGridSizeBtn.addEventListener('input', () => {
     gridSize = changeGridSizeBtn.value;
@@ -82,7 +98,7 @@ function createSquareArray(gridWidth) {
       square.style.width = `${MAIN_BOARD_WIDTH / gridWidth}px`;
       square.style.height = `${MAIN_BOARD_WIDTH / gridWidth}px`;
       square.style.boxSizing = 'border-box';
-      square.style.border = '1px solid black';
+      square.style.border = border;
       square.style.backgroundColor = backgroundColor;
       squareRow.appendChild(square);
     }
@@ -179,6 +195,28 @@ function disableDrag(squareArray) {
       });
     });
   });
+}
+
+// Turns grid lines on when "on" parameter is true
+function toggleGridLines(squareArray, on) {
+  if (on) {
+    border = '1px solid black';
+    squareArray.forEach((squareRow) => {
+      let squares = squareRow.querySelectorAll('div');
+      squares.forEach((square) => {
+        square.style.border = border;
+      });
+    });
+  }
+  else {
+    border = 'none';
+    squareArray.forEach((squareRow) => {
+      let squares = squareRow.querySelectorAll('div');
+      squares.forEach((square) => {
+        square.style.border = border;
+      });
+    });
+  }
 }
 
 function fillMainBoard(squareArray) {
