@@ -2,6 +2,7 @@ const MAIN_BOARD_WIDTH = 600;
 const board = document.querySelector('#mainBoard');
 const brushColorPicker = document.querySelector('#brushColor');
 const backgroundColorPicker = document.querySelector('#backgroundColor');
+const rainbowCheckbox = document.querySelector('#rainbow');
 const changeGridSizeBtn = document.querySelector('#changeGridSizeBtn');
 const changeGridSizeLabel = document.querySelector('#changeGridSizeLabel');
 const clearBoardBtn = document.querySelector('#clearBoardBtn');
@@ -19,11 +20,21 @@ function addOptionsEventListeners() {
   // Change brush color when color picker is changed
   brushColorPicker.addEventListener('change', () => {
     brushColor = brushColorPicker.value;
+    rainbowCheckbox.checked = false;
   });
   // Replace old backgorund with new when color picker is changed
   backgroundColorPicker.addEventListener('change', () => {
     backgroundColor = backgroundColorPicker.value;
     replaceBoard();
+  });
+  // Toggle for rainbow brush mode
+  rainbowCheckbox.addEventListener('change', () => {
+    if (!rainbowCheckbox.checked) {
+      handleNormalMouseInput(squareArray);
+    }
+    else {
+
+    }
   });
   // Clear the board without changing grid size
   clearBoardBtn.addEventListener('click', () => {
@@ -42,7 +53,7 @@ function addOptionsEventListeners() {
 }
 
 function initBoard(squareArray) {
-  handleMouseInput(squareArray);
+  handleNormalMouseInput(squareArray);
   disableDrag(squareArray);
   fillMainBoard(squareArray);
 }
@@ -80,14 +91,45 @@ function createSquareArray(gridWidth) {
   return squareArray;
 }
 
-function handleMouseInput(squareArray) {
+function handleNormalMouseInput(squareArray) {
   document.body.onmousedown = () => {
-    addSquareHovering(squareArray, brushColor);
+    addNormalSquareHovering(squareArray, brushColor);
   }
   document.body.onmouseup = () => {
-    removeSquareHovering(squareArray);
+    removeNormalSquareHovering(squareArray);
   }
-  addSquareClicking(squareArray);
+  addNormalSquareClicking(squareArray);
+}
+
+function addNormalSquareClicking(squareArray) {
+  squareArray.forEach((squareRow) => {
+    let squares = squareRow.querySelectorAll('div');
+    squares.forEach((square) => {
+      square.onclick = () => {
+        square.style.backgroundColor = brushColor;
+      }
+    });
+  });
+}
+
+function addNormalSquareHovering(squareArray, brushColor) {
+  squareArray.forEach((squareRow) => {
+    let squares = squareRow.querySelectorAll('div');
+    squares.forEach((square) => {
+      square.onmouseenter = () => {
+        square.style.backgroundColor = brushColor;
+      }
+    });
+  });
+}
+
+function removeNormalSquareHovering(squareArray) {
+  squareArray.forEach((squareRow) => {
+    let squares = squareRow.querySelectorAll('div');
+    squares.forEach((square) => {
+      square.onmouseenter = null;
+    });
+  });
 }
 
 function disableDrag(squareArray) {
@@ -104,39 +146,13 @@ function disableDrag(squareArray) {
   });
 }
 
-function addSquareClicking(squareArray) {
-  squareArray.forEach((squareRow) => {
-    let squares = squareRow.querySelectorAll('div');
-    squares.forEach((square) => {
-      square.onclick = () => {
-        square.style.backgroundColor = brushColor;
-      }
-    });
-  });
-}
-
-function addSquareHovering(squareArray, brushColor) {
-  squareArray.forEach((squareRow) => {
-    let squares = squareRow.querySelectorAll('div');
-    squares.forEach((square) => {
-      square.onmouseenter = () => {
-        square.style.backgroundColor = brushColor;
-      }
-    });
-  });
-}
-
-function removeSquareHovering(squareArray) {
-  squareArray.forEach((squareRow) => {
-    let squares = squareRow.querySelectorAll('div');
-    squares.forEach((square) => {
-      square.onmouseenter = null;
-    });
-  });
-}
-
 function fillMainBoard(squareArray) {
   squareArray.forEach((squareRow) => {
     board.appendChild(squareRow);
   });
+}
+
+// generates a random integer between 0 and max, not including max
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
 }
