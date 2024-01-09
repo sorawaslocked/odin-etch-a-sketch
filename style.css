@@ -2,17 +2,24 @@ body {
   background-color: #FFFF8F;
 }
 
-#header, #footer {
+#header, #footer, #warning {
   font-family: 'Pixelify Sans', sans-serif;
   text-align: center;
-  color: green;
+  color: #EE4B2B	;
+}
+
+#warning {
+  color: black;
+  font-size: 24px;
+  margin-bottom: 32px;
+  padding: 12px;
 }
 
 #header {
   font-size: 64px;
   font-weight: bold;
   padding: 24px;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 }
 
 #footer {
@@ -23,6 +30,11 @@ body {
 a {
   color: black;
   text-decoration: none;
+  transition: 100ms;
+}
+
+a:hover {
+  color: #FAA0A0	
 }
 
 #options {
@@ -168,7 +180,7 @@ button {
   justify-content: center;
   align-items: center;
   gap: 120px;
-  margin-bottom: 32px;
+  margin-bottom: 64px;
 }
 
 
