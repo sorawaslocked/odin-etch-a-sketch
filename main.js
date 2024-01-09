@@ -33,7 +33,7 @@ function addOptionsEventListeners() {
       handleNormalMouseInput(squareArray);
     }
     else {
-
+      handleRainbowMouseInput(squareArray);
     }
   });
   // Clear the board without changing grid size
@@ -128,6 +128,28 @@ function removeNormalSquareHovering(squareArray) {
     let squares = squareRow.querySelectorAll('div');
     squares.forEach((square) => {
       square.onmouseenter = null;
+    });
+  });
+}
+
+function handleRainbowMouseInput(squareArray) {
+  document.body.onmousedown = () => {
+    addRainbowSquareHovering(squareArray, brushColor);
+  }
+  document.body.onmouseup = () => {
+    removeRainbowSquareHovering(squareArray);
+  }
+  addRainbowSquareClicking(squareArray);
+}
+
+function addRainbowSquareClicking(squareArray) {
+  squareArray.forEach((squareRow) => {
+    let squares = squareRow.querySelectorAll('div');
+    squares.forEach((square) => {
+      square.onclick = () => {
+        let randomColor = `rgb(${getRandomInt(255)}, ${getRandomInt(255)}, ${getRandomInt(255)})`;
+        square.style.backgroundColor = randomColor;
+      }
     });
   });
 }
